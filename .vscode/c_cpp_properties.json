@@ -1,0 +1,69 @@
+{
+    "configurations": [
+        {
+            "name": "!!! WARNING !!! AUTO-GENERATED FILE, PLEASE DO NOT MODIFY IT AND USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags"
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "/home/zhamao/rosserial_stm32f1_basic/Inc",
+                "/home/zhamao/rosserial_stm32f1_basic/Src",
+                "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/CMSIS/Include",
+                "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+                "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/STM32F1xx_HAL_Driver/Inc",
+                "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/Common",
+                "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/stlm75",
+                "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/ili9320",
+                "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/lis302dl",
+                "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/spfd5408",
+                "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/ak4343",
+                "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/stmpe811",
+                "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/hx8347d",
+                "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/cs43l22",
+                "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/ili9325",
+                "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/st7735",
+                "/home/zhamao/.platformio/packages/tool-unity",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/home/zhamao/rosserial_stm32f1_basic/Inc",
+                    "/home/zhamao/rosserial_stm32f1_basic/Src",
+                    "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/CMSIS/Include",
+                    "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+                    "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/STM32F1xx_HAL_Driver/Inc",
+                    "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/Common",
+                    "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/stlm75",
+                    "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/ili9320",
+                    "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/lis302dl",
+                    "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/spfd5408",
+                    "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/ak4343",
+                    "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/stmpe811",
+                    "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/hx8347d",
+                    "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/cs43l22",
+                    "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/ili9325",
+                    "/home/zhamao/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/st7735",
+                    "/home/zhamao/.platformio/packages/tool-unity",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=40303",
+                "STM32F103xB",
+                "STM32F1",
+                "USE_HAL_DRIVER",
+                "F_CPU=72000000L",
+                ""
+            ],
+            "intelliSenseMode": "clang-x64",
+            "compilerPath": "/home/zhamao/.platformio/packages/toolchain-gccarmnoneeabi/bin/arm-none-eabi-gcc",
+            "compilerArgs": [
+                "-mthumb",
+                "-mcpu=cortex-m3",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
