@@ -27,7 +27,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <mainpp.h>
+//#include <mainpp.h>
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -93,7 +94,8 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  setup();
+  //setup();
+  initMPU6000(&hspi1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -103,7 +105,16 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    loop();
+    //loop();
+    
+    printf("gyro x:%d\r\n",gyro_16[0]);
+    printf("gyro y:%d\r\n",gyro_16[1]);
+    printf("gyro z:%d\r\n",gyro_16[2]);
+
+    printf("accel x:%d\r\n",accel_16[0]);
+    printf("accel z:%d\r\n",accel_16[1]);
+    printf("accel y:%d\r\n",accel_16[2]);
+
   }
   /* USER CODE END 3 */
 }
@@ -146,7 +157,13 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+int _write (int fd, char *pBuffer, int size){
+  for(int i = 0;i<size;i++){
+    HAL_UART_Transmit(&huart1, (uint8_t *)&pBuffer[i], 1, 0xFFFF);
+    while(HAL_UART_GetState(&huart1)==HAL_UART_STATE_BUSY_TX);
+  }
+  return size;
+}
 /* USER CODE END 4 */
 
 /**
