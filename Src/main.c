@@ -29,6 +29,7 @@
 /* USER CODE BEGIN Includes */
 //#include <mainpp.h>
 #include <stdio.h>
+#include "MPU6000.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -106,6 +107,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     //loop();
+
     printf("gyro x:%d\r\n",gyro_16[0]);
     printf("gyro y:%d\r\n",gyro_16[1]);
     printf("gyro z:%d\r\n",gyro_16[2]);

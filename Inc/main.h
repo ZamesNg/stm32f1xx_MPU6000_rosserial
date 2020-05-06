@@ -32,7 +32,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "MPU6000.h"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
