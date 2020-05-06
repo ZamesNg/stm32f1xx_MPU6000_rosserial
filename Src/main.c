@@ -106,7 +106,6 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     //loop();
-    
     printf("gyro x:%d\r\n",gyro_16[0]);
     printf("gyro y:%d\r\n",gyro_16[1]);
     printf("gyro z:%d\r\n",gyro_16[2]);
@@ -114,7 +113,7 @@ int main(void)
     printf("accel x:%d\r\n",accel_16[0]);
     printf("accel z:%d\r\n",accel_16[1]);
     printf("accel y:%d\r\n",accel_16[2]);
-
+    
   }
   /* USER CODE END 3 */
 }
