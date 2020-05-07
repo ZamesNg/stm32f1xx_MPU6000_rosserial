@@ -70,6 +70,7 @@
 #define BITS_SAMPLE_RATE_167HZ          0x05
 #define BITS_SAMPLE_RATE_143HZ          0x06
 #define BITS_SAMPLE_RATE_125HZ          0x07
+#define BITS_SAMPLE_RATE_50HZ           0x32
 
 #define MPUREG_CONFIG                   0x1A
 
@@ -87,7 +88,6 @@
 #define __START_SPI     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_RESET)
 #define __STOP_SPI      HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET)
 
-
 extern float gyro_nise_max;
 extern int16_t gyro_16[3],accel_16[3];
 extern float gyro_16_bias[3];
@@ -102,3 +102,8 @@ void calibrateGyroData6000(void);
 int initMPU6000(SPI_HandleTypeDef *hspi);
 HAL_StatusTypeDef MPU6000_set_reg(uint8_t reg,uint8_t value,SPI_HandleTypeDef *hspi);
 HAL_StatusTypeDef MPU6000_get_reg(uint8_t reg,uint8_t *	value,SPI_HandleTypeDef *hspi);
+int stm32_i2c_write(unsigned char slave_addr, unsigned char reg_addr,
+        unsigned char length, unsigned char const *data);
+int stm32_i2c_read(unsigned char slave_addr, unsigned char reg_addr,
+        unsigned char length, unsigned char *data);
+int _initMPU6000();

@@ -24,6 +24,9 @@
 #include "dmpKey.h"
 #include "dmpmap.h"
 
+//定义目标板采用MSP430
+#define  MOTION_DRIVER_TARGET_MSP430
+
 /* The following functions must be defined for this platform:
  * i2c_write(unsigned char slave_addr, unsigned char reg_addr,
  *      unsigned char length, unsigned char const *data)
@@ -33,12 +36,12 @@
  * get_ms(unsigned long *count)
  */
 #if defined MOTION_DRIVER_TARGET_MSP430
-#include "msp430.h"
-#include "msp430_clock.h"
-#define delay_ms    msp430_delay_ms
-#define get_ms      msp430_get_clock_ms
-#define log_i(...)     do {} while (0)
-#define log_e(...)     do {} while (0)
+//#include "msp430.h"
+//#include "msp430_clock.h"
+#define delay_ms    HAL_Delay
+#define get_ms      mget_ms
+#define log_i 		printf
+#define log_e  		printf
 
 #elif defined EMPL_TARGET_MSP430
 #include "msp430.h"
@@ -484,13 +487,22 @@ struct dmp_s {
     unsigned char packet_length;
 };
 
-static struct dmp_s dmp = {
-    .tap_cb = NULL,
-    .android_orient_cb = NULL,
-    .orient = 0,
-    .feature_mask = 0,
-    .fifo_rate = 0,
-    .packet_length = 0
+//static struct dmp_s dmp = {
+//    .tap_cb = NULL,
+//    .android_orient_cb = NULL,
+//    .orient = 0,
+//    .feature_mask = 0,
+//    .fifo_rate = 0,
+//    .packet_length = 0
+//};
+
+static struct dmp_s dmp={
+  NULL,
+  NULL,
+  0,
+  0,
+  0,
+  0
 };
 
 /**
@@ -626,7 +638,7 @@ int dmp_set_accel_bias(long *bias)
 
     mpu_get_accel_sens(&accel_sens);
     accel_sf = (long long)accel_sens << 15;
-    __no_operation();
+    //__no_operation();
 
     accel_bias_body[0] = bias[dmp.orient & 3];
     if (dmp.orient & 4)
@@ -1263,11 +1275,11 @@ int dmp_read_fifo(short *gyro, short *accel, long *quat,
      * cache this value and save some cycles.
      */
     sensors[0] = 0;
-
+    
     /* Get a packet. */
-    if (mpu_read_fifo_stream(dmp.packet_length, fifo_data, more))
+    if (mpu_read_fifo_stream(dmp.packet_length, fifo_data, more)){
         return -1;
-
+    }
     /* Parse DMP packet. */
     if (dmp.feature_mask & (DMP_FEATURE_LP_QUAT | DMP_FEATURE_6X_LP_QUAT)) {
 #ifdef FIFO_CORRUPTION_CHECK

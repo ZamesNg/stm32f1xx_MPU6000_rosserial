@@ -21,6 +21,10 @@
 #ifndef _INV_MPU_H_
 #define _INV_MPU_H_
 
+
+//定义输出速度
+#define DEFAULT_MPU_HZ  (100)		//100Hz
+
 #define INV_X_GYRO      (0x40)
 #define INV_Y_GYRO      (0x20)
 #define INV_Z_GYRO      (0x10)
@@ -28,17 +32,18 @@
 #define INV_XYZ_ACCEL   (0x08)
 #define INV_XYZ_COMPASS (0x01)
 
+//移植官方MSP430 DMP驱动过来
 struct int_param_s {
-#if defined EMPL_TARGET_MSP430 || defined MOTION_DRIVER_TARGET_MSP430
+//#if defined EMPL_TARGET_MSP430 || defined MOTION_DRIVER_TARGET_MSP430
     void (*cb)(void);
     unsigned short pin;
     unsigned char lp_exit;
     unsigned char active_low;
-#elif defined EMPL_TARGET_UC3L0
-    unsigned long pin;
-    void (*cb)(volatile void*);
-    void *arg;
-#endif
+//#elif defined EMPL_TARGET_UC3L0
+//    unsigned long pin;
+//    void (*cb)(volatile void*);
+//    void *arg;
+//#endif
 };
 
 #define MPU_INT_STATUS_DATA_READY       (0x0001)
@@ -57,7 +62,7 @@ struct int_param_s {
 #define MPU_INT_STATUS_DMP_5            (0x2000)
 
 /* Set up APIs */
-int mpu_init(struct int_param_s *int_param);
+int mpu_init(void);
 int mpu_init_slave(void);
 int mpu_set_bypass(unsigned char bypass_on);
 
@@ -122,6 +127,13 @@ int mpu_reg_dump(void);
 int mpu_read_reg(unsigned char reg, unsigned char *data);
 int mpu_run_self_test(long *gyro, long *accel);
 int mpu_register_tap_cb(void (*func)(unsigned char, unsigned char));
+//自行添加的一些函数
+void mget_ms(unsigned long *time);
+unsigned short inv_row_2_scale(const signed char *row);
+unsigned short inv_orientation_matrix_to_scalar(const signed char *mtx);
+uint8_t run_self_test(void);
+uint8_t mpu_dmp_init(void);
+uint8_t mpu_dmp_get_data(float *pitch,float *roll,float *yaw);
 
 #endif  /* #ifndef _INV_MPU_H_ */
 

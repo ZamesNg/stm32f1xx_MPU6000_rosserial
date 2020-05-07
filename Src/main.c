@@ -27,8 +27,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include<mainpp.h>
+#include <mainpp.h>
 #include "MPU6000.h"
+#include "inv_mpu.h"
+//#include "inv_mpu_dmp_motion_driver.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,8 +97,17 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  //setup();
-  initMPU6000(&hspi1);
+  setup();
+  // int num = 0;
+  // float pitch,yaw,roll;
+  // pitch = yaw = roll = 0;
+  // int status = 0;
+  // initMPU6000(&hspi1);
+  // for(status = mpu_dmp_init();status;){
+  //   printf("dmp init error!\r\n");
+  //   printf("error code: %d\r\n",status);
+  //   HAL_Delay(500);
+  //}
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -106,7 +117,30 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    //loop();
+    loop();
+    // HAL_GPIO_TogglePin(BLUE_LED_GPIO_Port,BLUE_LED_Pin);
+    // printf("------------ %d -----------\r\n",num);
+    // printf("gyro x:%d\r\n",gyro_16[0]);
+    // printf("gyro y:%d\r\n",gyro_16[1]);
+    // printf("gyro z:%d\r\n",gyro_16[2]);
+    // printf("---------------------------\r\n");
+    // printf("accel x:%d\r\n",accel_16[0]);
+    // printf("accel y:%d\r\n",accel_16[1]);
+    // printf("accel z:%d\r\n",accel_16[2]);
+    // num ++;
+    // readAccelGyroData6000();
+    // status = mpu_dmp_get_data(&pitch,&roll,&yaw);
+    // if(!status){
+    //   char tmp[20]={0};
+    //   sprintf(tmp,"pitch: %f\r\n",  pitch  );printf("%s\r\n",tmp);
+    //   sprintf(tmp,"yaw:   %f\r\n",    yaw  );printf("%s\r\n",tmp);
+    //   sprintf(tmp,"roll:  %f\r\n",   roll  );printf("%s\r\n",tmp);
+    // }else
+    // {
+    //   printf("dmp get data fail!\r\n");
+    //   printf("error code: %d\r\n",status);
+    // }
+    //HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }

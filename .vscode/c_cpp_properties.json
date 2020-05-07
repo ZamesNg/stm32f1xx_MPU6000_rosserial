@@ -8,8 +8,6 @@
             "includePath": [
                 "c:/Users/Dell/Downloads/rosserial_stm32f1_basic/lib/MPU6000/src",
                 "c:/Users/Dell/Downloads/rosserial_stm32f1_basic/lib/rosserial_stm32/src",
-                "c:/Users/Dell/Downloads/rosserial_stm32f1_basic/lib/MPU6000_DMP/src",
-                "c:/Users/Dell/Downloads/rosserial_stm32f1_basic/lib/spi_map_to_i2c/src",
                 "C:/Users/Dell/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/ak4343",
                 "C:/Users/Dell/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/Common",
                 "C:/Users/Dell/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/cs43l22",
@@ -34,8 +32,6 @@
                 "path": [
                     "c:/Users/Dell/Downloads/rosserial_stm32f1_basic/lib/MPU6000/src",
                     "c:/Users/Dell/Downloads/rosserial_stm32f1_basic/lib/rosserial_stm32/src",
-                    "c:/Users/Dell/Downloads/rosserial_stm32f1_basic/lib/MPU6000_DMP/src",
-                    "c:/Users/Dell/Downloads/rosserial_stm32f1_basic/lib/spi_map_to_i2c/src",
                     "C:/Users/Dell/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/ak4343",
                     "C:/Users/Dell/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/Common",
                     "C:/Users/Dell/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/cs43l22",
@@ -60,7 +56,6 @@
                 "PLATFORMIO=40303",
                 "STM32F103xB",
                 "STM32F1",
-                "MPU6050",
                 "USE_HAL_DRIVER",
                 "F_CPU=72000000L",
                 ""

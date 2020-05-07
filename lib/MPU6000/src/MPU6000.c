@@ -71,12 +71,12 @@ int initMPU6000(SPI_HandleTypeDef *hspi)
   MPU6000_set_reg(CONFIG,BITS_DLPF_CFG_42HZ,hspi);
   
   // Set sample rate = gyroscope output rate/(1 + SMPLRT_DIV)	
-  MPU6000_set_reg(SMPLRT_DIV,BITS_SAMPLE_RATE_200HZ,hspi);  // Use a 200 Hz rate; the same rate set in CONFIG above
+  MPU6000_set_reg(SMPLRT_DIV,BITS_SAMPLE_RATE_50HZ,hspi);  // Use a 200 Hz rate; the same rate set in CONFIG above
   
   // Set gyroscope full scale range
   // Range selects FS_SEL and AFS_SEL are 0 - 3, so 2-bit values are left-shifted into positions 4:3
-  MPU6000_set_reg(GYRO_CONFIG,BITS_FS_250DPS,hspi); //± 500 °/s
-  MPU6000_set_reg(ACCEL_CONFIG,BITS_FS_4G,hspi); //± 4g
+  MPU6000_set_reg(GYRO_CONFIG,BITS_FS_2000DPS,hspi); //± 500 °/s
+  MPU6000_set_reg(ACCEL_CONFIG,BITS_FS_2G,hspi); //± 4g
 
   
   // Configure Interrupts and Bypass Enable
@@ -84,7 +84,9 @@ int initMPU6000(SPI_HandleTypeDef *hspi)
   // can join the I2C bus and all can be controlled by the Arduino as master
   MPU6000_set_reg(INT_PIN_CFG,0x22,hspi);
   MPU6000_set_reg(INT_ENABLE,0x01,hspi);
-
+  uint8_t whoami;
+  MPU6000_get_reg(MPU6000_WHOAMI,&whoami,hspi);
+  printf("check mpu as 0x%x\r\n",whoami);
   MPU6000_SPI = hspi;
   /*
   gyro_nise_max = 1000; 
@@ -96,10 +98,35 @@ int initMPU6000(SPI_HandleTypeDef *hspi)
   return 0;
 }
 
+initMPU6000_forDmp(SPI_HandleTypeDef *hspi){
+  MPU6000_set_reg(MPU6000_USER_CTRL,BIT_I2C_IF_DIS,hspi);
+  HAL_Delay(100);
+  MPU6000_set_reg(PWR_MGMT_1,BIT_H_RESET,hspi);// Clear sleep mode bit (6), enable all sensors 
+  HAL_Delay(100); // Delay 100 ms for PLL to get established on x-axis gyro; should check for PLL ready interrupt  
+  MPU6000_set_reg(PWR_MGMT_1,0x00,hspi);// Clear sleep mode bit (6), enable all sensors 
+  MPU6000_set_reg(GYRO_CONFIG,BITS_FS_2000DPS,hspi);
+  MPU6000_set_reg(ACCEL_CONFIG,BITS_FS_2G,hspi);
+  MPU6000_set_reg(SMPLRT_DIV,BITS_SAMPLE_RATE_50HZ,hspi);
+  MPU6000_set_reg(0x38,0x00,hspi);
+  MPU6000_set_reg(0x6A,0x00,hspi);
+  MPU6000_set_reg(0x23,0x00,hspi);
+  MPU6000_set_reg(0x37,0x80,hspi);
+  uint8_t whoami;
+  MPU6000_get_reg(MPU6000_WHOAMI,&whoami,hspi);
+  printf("check mpu as 0x%x\r\n",whoami);
+  return 0;
+}
+
+int _initMPU6000(){
+  return initMPU6000(MPU6000_SPI);
+}
+
+
 void readGyroData6000(int16_t * destination)
 {
   uint8_t gyr[6];
   __START_SPI;
+  //set MSB as 1 to read data
   spiTransfer(MPU6000_SPI, MPU6000_GYRO_XOUT_H | 0x80);
   HAL_SPI_Receive(MPU6000_SPI,gyr,6,0x1);
   __STOP_SPI;
@@ -184,4 +211,30 @@ void calibrateGyroData6000(void)
   theta=0.95f*theta+0.05f*theta_acc; 
 }
 
+int stm32_i2c_write(unsigned char slave_addr, unsigned char reg_addr,
+        unsigned char length, unsigned char const *data){
+  UNUSED(slave_addr);
+  __START_SPI;
+  if(HAL_SPI_Transmit(MPU6000_SPI,&reg_addr,1,0xffff))
+    return -1;
+  //while (HAL_SPI_GetState(MPU6000_SPI)==HAL_SPI_STATE_BUSY_TX);
+  if(HAL_SPI_Transmit(MPU6000_SPI,(uint8_t *)data,length,0xffff))
+    return -1;
+  __STOP_SPI;
+  return 0;
+}
 
+int stm32_i2c_read(unsigned char slave_addr, unsigned char reg_addr,
+        unsigned char length, unsigned char *data){
+  UNUSED(slave_addr);
+  unsigned char reg;
+  reg = reg_addr|0x80;
+  __START_SPI;
+  if(HAL_SPI_Transmit(MPU6000_SPI,&reg,1,0xffff))
+    return -1;
+  //while(HAL_SPI_GetState(MPU6000_SPI)==HAL_SPI_STATE_BUSY_TX);
+  if(HAL_SPI_Receive(MPU6000_SPI,data,length,0xffff))
+    return -1;
+  __STOP_SPI;
+  return 0;
+}
