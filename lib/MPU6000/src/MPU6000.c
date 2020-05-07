@@ -52,8 +52,9 @@ HAL_StatusTypeDef MPU6000_get_reg(uint8_t reg,uint8_t *	value,SPI_HandleTypeDef 
 int initMPU6000(SPI_HandleTypeDef *hspi)
 {
   // Initialize MPU6050 device
-  // wake up device
+  // disable I2C and enable SPI first
   MPU6000_set_reg(MPU6000_USER_CTRL,BIT_I2C_IF_DIS,hspi);
+  // wake up device
   //uint8_t data[2]={PWR_MGMT_1, 0x00};
   //HAL_I2C_Master_Transmit(hi2c,MPU6050_ADDRESS,data,2,1); 
   HAL_Delay(100);
