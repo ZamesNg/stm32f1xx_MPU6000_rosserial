@@ -101,6 +101,25 @@ static inline int reg_int_cb(struct int_param_s *int_param)
 /* UC3 is a 32-bit processor, so abs and labs are equivalent. */
 #define labs        abs
 #define fabs(x)     (((x)>0)?(x):-(x))
+#elif defined STM32F103xB
+#include "stm32f1xx_hal.h"
+#include "spi_map_to_i2c.h"
+#include <stdio.h>
+#define i2c_write(a, b, c, d)   stm32_i2c_write(a, b, d, c)
+#define i2c_read(a, b, c, d)    stm32_i2c_read(a, b, d, c)
+#define log_i       printf
+#define log_e       printf
+#define labs        abs
+#define fabs(x)     (((x)>0)?(x):-(x))
+#define delay_ms    HAL_Delay
+void get_ms(unsigned long *count){
+    *count = HAL_GetTick();
+}
+static inline int reg_int_cb(struct int_param_s *int_param)
+{
+    //sensor_board_irq_connect(int_param->pin, int_param->cb, int_param->arg);
+    return 0;
+}
 #else
 #error  Gyro driver is missing the system layer implementations.
 #endif

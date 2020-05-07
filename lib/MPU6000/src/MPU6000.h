@@ -100,3 +100,5 @@ void readAccelData6000(int16_t * destination);
 void readAccelGyroData6000(void);
 void calibrateGyroData6000(void);
 int initMPU6000(SPI_HandleTypeDef *hspi);
+HAL_StatusTypeDef MPU6000_set_reg(uint8_t reg,uint8_t value,SPI_HandleTypeDef *hspi);
+HAL_StatusTypeDef MPU6000_get_reg(uint8_t reg,uint8_t *	value,SPI_HandleTypeDef *hspi);
