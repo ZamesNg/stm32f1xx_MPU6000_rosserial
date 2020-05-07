@@ -6,6 +6,9 @@
         {
             "name": "Win32",
             "includePath": [
+                "c:/Users/Dell/Downloads/rosserial_stm32f1_basic/lib/MPU6000/src",
+                "c:/Users/Dell/Downloads/rosserial_stm32f1_basic/lib/rosserial_stm32/src",
+                "c:/Users/Dell/Downloads/rosserial_stm32f1_basic/lib/MPU6000_DMP/src",
                 "C:/Users/Dell/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/ak4343",
                 "C:/Users/Dell/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/Common",
                 "C:/Users/Dell/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/cs43l22",
@@ -28,6 +31,9 @@
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
+                    "c:/Users/Dell/Downloads/rosserial_stm32f1_basic/lib/MPU6000/src",
+                    "c:/Users/Dell/Downloads/rosserial_stm32f1_basic/lib/rosserial_stm32/src",
+                    "c:/Users/Dell/Downloads/rosserial_stm32f1_basic/lib/MPU6000_DMP/src",
                     "C:/Users/Dell/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/ak4343",
                     "C:/Users/Dell/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/Common",
                     "C:/Users/Dell/.platformio/packages/framework-stm32cube/f1/Drivers/BSP/Components/cs43l22",

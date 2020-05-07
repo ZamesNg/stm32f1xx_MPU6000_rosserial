@@ -10,7 +10,11 @@
 
 #ifdef __cplusplus
  extern "C" {
+     
 #endif
+#include <MPU6000.h>
+#include <usart.h>
+#include <spi.h>
 
 void setup(void);
 void loop(void);

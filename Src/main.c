@@ -27,7 +27,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-//#include <mainpp.h>
+#include<mainpp.h>
 #include "MPU6000.h"
 /* USER CODE END Includes */
 
@@ -38,6 +38,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -69,7 +70,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  int num = 0;
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -94,8 +95,7 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  //setup();
-  initMPU6000(&hspi1);
+  setup();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -105,19 +105,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    //loop();
-    HAL_GPIO_TogglePin(BLUE_LED_GPIO_Port,BLUE_LED_Pin);
-    printf("------------ %d -----------\r\n",num);
-    printf("gyro x:%d\r\n",gyro_16[0]);
-    printf("gyro y:%d\r\n",gyro_16[1]);
-    printf("gyro z:%d\r\n",gyro_16[2]);
-    printf("---------------------------\r\n");
-    printf("accel x:%d\r\n",accel_16[0]);
-    printf("accel y:%d\r\n",accel_16[1]);
-    printf("accel z:%d\r\n",accel_16[2]);
-    num ++;
-    readAccelGyroData6000();
-    HAL_Delay(1000);
+    loop();
   }
   /* USER CODE END 3 */
 }
