@@ -98,10 +98,10 @@ class STM32Hardware {
     }
 
     void write(uint8_t* data, int length){
-      int n = length;
+      unsigned int n = length;
       n = n <= tbuflen ? n : tbuflen;
 
-      int n_tail = n <= tbuflen - twind ? n : tbuflen - twind;
+      unsigned int n_tail = n <= tbuflen - twind ? n : tbuflen - twind;
       memcpy(&(tbuf[twind]), data, n_tail);
       twind = (twind + n) & (tbuflen - 1);
 
