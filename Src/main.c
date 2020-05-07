@@ -28,7 +28,6 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 //#include <mainpp.h>
-#include <stdio.h>
 #include "MPU6000.h"
 /* USER CODE END Includes */
 
@@ -70,7 +69,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+  int num = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -107,15 +106,18 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
     //loop();
-
+    HAL_GPIO_TogglePin(BLUE_LED_GPIO_Port,BLUE_LED_Pin);
+    printf("------------ %d -----------\r\n",num);
     printf("gyro x:%d\r\n",gyro_16[0]);
     printf("gyro y:%d\r\n",gyro_16[1]);
     printf("gyro z:%d\r\n",gyro_16[2]);
-
+    printf("---------------------------\r\n");
     printf("accel x:%d\r\n",accel_16[0]);
-    printf("accel z:%d\r\n",accel_16[1]);
-    printf("accel y:%d\r\n",accel_16[2]);
-    
+    printf("accel y:%d\r\n",accel_16[1]);
+    printf("accel z:%d\r\n",accel_16[2]);
+    num ++;
+    readAccelGyroData6000();
+    HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }

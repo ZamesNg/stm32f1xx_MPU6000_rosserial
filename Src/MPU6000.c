@@ -57,36 +57,26 @@ int initMPU6000(SPI_HandleTypeDef *hspi)
   //uint8_t data[2]={PWR_MGMT_1, 0x00};
   //HAL_I2C_Master_Transmit(hi2c,MPU6050_ADDRESS,data,2,1); 
   HAL_Delay(100);
-  MPU6000_set_reg(PWR_MGMT_1,1<<7,hspi);// Clear sleep mode bit (6), enable all sensors 
+  MPU6000_set_reg(PWR_MGMT_1,BIT_H_RESET,hspi);// Clear sleep mode bit (6), enable all sensors 
   HAL_Delay(100); // Delay 100 ms for PLL to get established on x-axis gyro; should check for PLL ready interrupt  
-  MPU6000_set_reg(MPU6000_USER_CTRL,0x1,hspi);// Clear sleep mode bit (6), enable all sensors 
+  MPU6000_set_reg(MPU6000_USER_CTRL,BITS_AS_RESET,hspi);// Clear sleep mode bit (6), enable all sensors 
   HAL_Delay(100);
   // get stable time source
-  MPU6000_set_reg(PWR_MGMT_1,0x00,hspi);// Set clock source to be PLL with x-axis gyroscope reference, bits 2:0 = 001
+  MPU6000_set_reg(PWR_MGMT_1,MPU_CLK_SEL_PLLGYROX,hspi);// Set clock source to be PLL with x-axis gyroscope reference, bits 2:0 = 001
   
   // Configure Gyro and Accelerometer
   // Disable FSYNC and set accelerometer and gyro bandwidth to 44 and 42 Hz, respectively; 
   // DLPF_CFG = bits 2:0 = 010; this sets the sample rate at 1 kHz for both
   // Maximum delay is 4.9 ms which is just over a 200 Hz maximum rate
-  MPU6000_set_reg(CONFIG,0x03,hspi);
+  MPU6000_set_reg(CONFIG,BITS_DLPF_CFG_42HZ,hspi);
   
   // Set sample rate = gyroscope output rate/(1 + SMPLRT_DIV)	
-  MPU6000_set_reg(SMPLRT_DIV,0x00,hspi);  // Use a 200 Hz rate; the same rate set in CONFIG above
+  MPU6000_set_reg(SMPLRT_DIV,BITS_SAMPLE_RATE_200HZ,hspi);  // Use a 200 Hz rate; the same rate set in CONFIG above
   
   // Set gyroscope full scale range
   // Range selects FS_SEL and AFS_SEL are 0 - 3, so 2-bit values are left-shifted into positions 4:3
-
-  //uint8_t c;
-  //MPU6000_get_reg(GYRO_CONFIG,&c,hspi);
-  //MPU6000_set_reg(GYRO_CONFIG,c & ~0xE0,hspi); // Clear self-test bits [7:5] 
-  //MPU6000_set_reg(GYRO_CONFIG,c & ~0x18,hspi); // Clear AFS bits [4:3]
-  //MPU6000_set_reg(GYRO_CONFIG,c | 0x10,hspi); // Set full scale range for the gyro
   MPU6000_set_reg(GYRO_CONFIG,BITS_FS_250DPS,hspi); //± 500 °/s
   MPU6000_set_reg(ACCEL_CONFIG,BITS_FS_4G,hspi); //± 4g
-  //MPU6000_get_reg(ACCEL_CONFIG,&c,hspi);
-  //MPU6000_set_reg(ACCEL_CONFIG,c & ~0xE0,hspi); // Clear self-test bits [7:5] 
-  //MPU6000_set_reg(ACCEL_CONFIG,c & ~0x18,hspi); // Clear AFS bits [4:3]
-  //MPU6000_set_reg(ACCEL_CONFIG,c | 0x10,hspi); // Set scale to 4G 
 
   
   // Configure Interrupts and Bypass Enable
