@@ -9,6 +9,7 @@ this repo is just a practice of the course `embedded system`.Aiming at getting f
 ## features
 
 use a opensource flight controller of quadrotor, which named `CC3D`.
+
 use `cubemx` and `platformio` to replace rubbish software `keil5`.
 
 ## MPU6000 SPI driver of stm32 HAL library
@@ -24,6 +25,7 @@ I really take a hard time at writing the `driver` and `initialization` code of `
 ## rosserial immigration
 
 remember to set uart as `DMA` mode.
+
 change the source code of `STM32Hardware.h`.
 
 ## redirection of function `printf`
@@ -45,5 +47,7 @@ and remember to check your toolchains first!
 ## Each Branch of this Repository
 
 ***origin***    the basic implement of rosserial on genericSTM32F103CB
+
 ***SPI-test***  use `SPI1` to read `MPU6000`, then use `UART1` to send out data.
+
 ***MPU_6050_DMP*** the implement of DMP on `SPI` `MPU6000` and messages to ros via `UART1`.
