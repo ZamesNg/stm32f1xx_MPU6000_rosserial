@@ -15,11 +15,11 @@ use `cubemx` and `platformio` to replace rubbish software `keil5`.
 
 I really take a hard time at writing the `driver` and `initialization` code of `MPU6000` (who want to write the initialization code of `MPU6000` should take care of the follow code).
 
-(```)
+```cpp
   // disable I2C and enable SPI first
   // we should do this at the first time power on
   MPU6000_set_reg(MPU6000_USER_CTRL,BIT_I2C_IF_DIS,hspi);
-(```)
+```
 
 ## rosserial immigration
 
@@ -29,14 +29,16 @@ change the source code of `STM32Hardware.h`.
 ## redirection of function `printf`
 
 the low level interface is nolonger
-(```)
+
+```cpp
     int fputc(int char, FILE *stream);
-(```)
+```
 
 and it changes to
-(```)
+
+```cpp
     int _write (int fd, char *pBuffer, int size);
-(```)
+```
 
 and remember to check your toolchains first!
 
